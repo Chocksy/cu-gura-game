@@ -140,6 +140,26 @@
             text-align: center;
         }
 
+        .reset-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.7);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+
         @media (max-width: 600px) {
             h1 { font-size: 1.8rem; }
             .card { padding: 30px 20px; min-width: 280px; }
@@ -166,6 +186,8 @@
     </button>
 
     <p class="error" id="error"></p>
+
+    <button class="reset-btn" onclick="resetGame()">🔄 Joc Nou</button>
 
     <!-- API Key injected by server -->
     <script>window.OPENROUTER_API_KEY = "%%OPENROUTER_API_KEY%%";</script>
@@ -197,6 +219,13 @@
                 phrases = phrases.slice(0, MAX_HISTORY);
             }
             localStorage.setItem('usedPhrases', JSON.stringify(phrases));
+        }
+
+        function resetGame() {
+            localStorage.removeItem('usedPhrases');
+            document.getElementById('words').textContent = 'Joc nou! Apasă butonul pentru a genera o carte!';
+            document.getElementById('execution').style.display = 'none';
+            document.getElementById('error').textContent = '';
         }
 
         async function generateCard() {
