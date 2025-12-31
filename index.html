@@ -221,8 +221,38 @@
             localStorage.setItem('usedPhrases', JSON.stringify(phrases));
         }
 
+        // Better style randomization - cycles through all before repeating
+        function getAvailableStyles() {
+            const stored = localStorage.getItem('usedStyles');
+            return stored ? JSON.parse(stored) : [];
+        }
+
+        function getRandomStyle() {
+            let usedStyles = getAvailableStyles();
+            
+            // If all styles used, reset the pool
+            if (usedStyles.length >= EXECUTION_STYLES.length) {
+                usedStyles = [];
+            }
+            
+            // Get styles not yet used
+            const availableIndices = EXECUTION_STYLES
+                .map((_, i) => i)
+                .filter(i => !usedStyles.includes(i));
+            
+            // Pick random from available
+            const randomIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
+            
+            // Save used style
+            usedStyles.push(randomIndex);
+            localStorage.setItem('usedStyles', JSON.stringify(usedStyles));
+            
+            return EXECUTION_STYLES[randomIndex];
+        }
+
         function resetGame() {
             localStorage.removeItem('usedPhrases');
+            localStorage.removeItem('usedStyles');
             document.getElementById('words').textContent = 'Joc nou! Apasă butonul pentru a genera o carte!';
             document.getElementById('execution').style.display = 'none';
             document.getElementById('error').textContent = '';
@@ -287,8 +317,8 @@ Fii foarte creativ și variat!${avoidText}`
                 // Save phrase to avoid repeats
                 savePhrase(words);
                 
-                // Random execution style
-                const style = EXECUTION_STYLES[Math.floor(Math.random() * EXECUTION_STYLES.length)];
+                // Get execution style (cycles through all before repeating)
+                const style = getRandomStyle();
 
                 wordsEl.textContent = words;
                 document.getElementById('executionIcon').textContent = style.icon;
