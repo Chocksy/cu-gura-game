@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  cu-gura-game:
+    build: .
+    container_name: cu-gura-game
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.cu-gura-game.rule=Host(`gura.chocksy.com`)"
+      - "traefik.http.routers.cu-gura-game.entrypoints=https"
+      - "traefik.http.routers.cu-gura-game.tls=true"
+      - "traefik.http.routers.cu-gura-game.tls.certresolver=letsencrypt"
+      - "traefik.http.services.cu-gura-game.loadbalancer.server.port=80"
+    networks:
+      - coolify
+
+networks:
+  coolify:
+    external: true
