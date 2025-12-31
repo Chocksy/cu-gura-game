@@ -229,11 +229,19 @@
                         model: MODEL,
                         messages: [{
                             role: 'user',
-                            content: `Generează o expresie amuzantă în limba română pentru jocul "Cu gura până la urechi" unde jucătorii trebuie să spună expresia cu gura deschisă, limba scoasă sau zâmbind.
-                            Expresia trebuie să aibă între 2 și 5 cuvinte care formează ceva amuzant sau interesant de ghicit.
-                            NU folosi virgule sau ghilimele. Răspunde DOAR cu expresia, nimic altceva.
-                            Exemple: broască țestoasă supărată, bunicuța face prăjituri, Superman în chiloți, elefant pe bicicletă, Dracula la dentist, pisica vecinului miaună, prințesa pupă broasca, bebelușul plânge tare, mămăliga cu brânză, cocoșul cântă dimineața, Batman la cumpărături, dinozaur la școală, bunica dansează disco, câinele fuge după mașină, iepurașul mănâncă morcovi
-                            Fii creativ și amuzant!${avoidText}`
+                            content: `Generează o expresie amuzantă în limba română (2-4 cuvinte) pentru jocul "Cu gura până la urechi".
+                            
+Alege RANDOM din aceste categorii:
+- Obiecte cu adjective: cutia colorată, sticla verde, scaunul stricat, ciorapul găurit, cheia ruginită, telefonul spart
+- Mâncare amuzantă: supă de cuie, ciorbă rece, pizza cu banane, înghețată fierbinte, sarmale dulci
+- Combinații absurde: perna furioasă, frigiderul melancolic, pantalonii timizi, umbrela romantică
+- Expresii populare: a-i curge nasul, a lua apă la puțină, floare la ureche, cu musca pe căciulă
+- Personaje amuzante: moșul cu barbă, bunica ninja, bebelușul detectiv, vecinul curios
+- Locuri ciudate: baie galbenă, bucătărie secretă, pod întunecat, grădină magică
+- Sunete/onomatopee: trosc și pleosc, buf și puf, țârâit suspect
+
+NU folosi virgule sau ghilimele. Răspunde DOAR cu expresia, MAX 4 cuvinte, nimic altceva.
+Fii foarte creativ și variat!${avoidText}`
                         }],
                         max_tokens: 50,
                         temperature: 1.0
