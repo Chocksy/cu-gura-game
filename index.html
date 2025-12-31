@@ -172,7 +172,7 @@
 
     <script>
         const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
-        const MODEL = 'openai/gpt-4o-mini';
+        const MODEL = 'openai/gpt-5.2-chat';
         const API_KEY = window.OPENROUTER_API_KEY;
         
         const EXECUTION_STYLES = [
@@ -207,12 +207,11 @@
                         model: MODEL,
                         messages: [{
                             role: 'user',
-                            content: `Generează o expresie poetică sau evocatoare în limba română pentru un joc de ghicit. 
-                            Expresia trebuie să aibă între 2 și 5 cuvinte care formează o imagine sau un concept interesant.
-                            NU folosi virgule. Cuvintele trebuie să fie legate într-o singură expresie cu sens.
-                            Răspunde DOAR cu expresia, fără ghilimele, explicații sau text adițional.
-                            Exemple bune: lac elegant, ploaie caldă cu aur, pisică pe acoperiș, zâmbet de copil, lună plină deasupra mării, dans în ploaie
-                            Fii creativ și poetic!`
+                            content: `Generează o expresie amuzantă în limba română pentru jocul "Cu gura până la urechi" unde jucătorii trebuie să spună expresia cu gura deschisă, limba scoasă sau zâmbind.
+                            Expresia trebuie să aibă între 2 și 5 cuvinte care formează ceva amuzant sau interesant de ghicit.
+                            NU folosi virgule sau ghilimele. Răspunde DOAR cu expresia, nimic altceva.
+                            Exemple: broască țestoasă supărată, bunicuța face prăjituri, Superman în chiloți, elefant pe bicicletă, Dracula la dentist, pisica vecinului miaună, prințesa pupă broasca, bebelușul plânge tare, mămăliga cu brânză, cocoșul cântă dimineața, Batman la cumpărături, dinozaur la școală, bunica dansează disco, câinele fuge după mașină, iepurașul mănâncă morcovi
+                            Fii creativ și amuzant!`
                         }],
                         max_tokens: 50,
                         temperature: 1.0
