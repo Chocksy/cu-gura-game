@@ -182,6 +182,23 @@
             { text: 'Cu zâmbet', icon: '😊' }
         ];
 
+        // Store used phrases to avoid repeats
+        const MAX_HISTORY = 50;
+        
+        function getUsedPhrases() {
+            const stored = localStorage.getItem('usedPhrases');
+            return stored ? JSON.parse(stored) : [];
+        }
+        
+        function savePhrase(phrase) {
+            let phrases = getUsedPhrases();
+            phrases.unshift(phrase.toLowerCase());
+            if (phrases.length > MAX_HISTORY) {
+                phrases = phrases.slice(0, MAX_HISTORY);
+            }
+            localStorage.setItem('usedPhrases', JSON.stringify(phrases));
+        }
+
         async function generateCard() {
             const btn = document.getElementById('generateBtn');
             const wordsEl = document.getElementById('words');
@@ -195,6 +212,11 @@
             executionEl.style.display = 'none';
 
             try {
+                const usedPhrases = getUsedPhrases();
+                const avoidText = usedPhrases.length > 0 
+                    ? `\nNU folosi aceste expresii care au fost deja folosite: ${usedPhrases.slice(0, 20).join(', ')}`
+                    : '';
+
                 const response = await fetch(OPENROUTER_URL, {
                     method: 'POST',
                     headers: {
@@ -211,7 +233,7 @@
                             Expresia trebuie să aibă între 2 și 5 cuvinte care formează ceva amuzant sau interesant de ghicit.
                             NU folosi virgule sau ghilimele. Răspunde DOAR cu expresia, nimic altceva.
                             Exemple: broască țestoasă supărată, bunicuța face prăjituri, Superman în chiloți, elefant pe bicicletă, Dracula la dentist, pisica vecinului miaună, prințesa pupă broasca, bebelușul plânge tare, mămăliga cu brânză, cocoșul cântă dimineața, Batman la cumpărături, dinozaur la școală, bunica dansează disco, câinele fuge după mașină, iepurașul mănâncă morcovi
-                            Fii creativ și amuzant!`
+                            Fii creativ și amuzant!${avoidText}`
                         }],
                         max_tokens: 50,
                         temperature: 1.0
@@ -224,6 +246,9 @@
 
                 const data = await response.json();
                 const words = data.choices[0].message.content.trim();
+                
+                // Save phrase to avoid repeats
+                savePhrase(words);
                 
                 // Random execution style
                 const style = EXECUTION_STYLES[Math.floor(Math.random() * EXECUTION_STYLES.length)];
